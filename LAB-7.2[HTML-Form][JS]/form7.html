@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form 7 - Profile</title>
+</head>
+<body>
+
+<h2>Form 7</h2>
+
+<form onsubmit="return validateForm()">
+    User ID: <input type="text" id="userid"><br><br>
+    Picture: <input type="file" id="pic"><br><br>
+    <input type="submit" value="Submit">
+</form>
+
+<script>
+function validateForm() {
+    var id = document.getElementById("userid").value;
+    var pic = document.getElementById("pic").value;
+
+    if (id == "" || id <= 0) {
+        alert("User ID must be positive number");
+        return false;
+    }
+
+    if (pic == "") {
+        alert("Picture cannot be empty");
+        return false;
+    }
+
+    return true;
+}
+</script>
+
+</body>
+</html>
