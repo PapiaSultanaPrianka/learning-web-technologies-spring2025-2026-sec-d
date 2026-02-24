@@ -119,9 +119,19 @@ function validateForm() {
         alert("Name cannot be empty");
         return false;
     }
-    if (!/^[A-Za-z][A-Za-z.\- ]+$/.test(name)) {
+
+    let validNameChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ. -";
+    
+    if (!validNameChars.includes(name.charAt(0)) || name.charAt(0) === '.' || name.charAt(0) === '-' || name.charAt(0) === ' ') {
         alert("Invalid characters or must start with letter");
         return false;
+    }
+    
+    for (let i = 1; i < name.length; i++) {
+        if (!validNameChars.includes(name[i])) {
+            alert("Invalid characters or must start with letter");
+            return false;
+        }
     }
     if (name.trim().split(" ").length < 2) {
         alert("Must contain at least two words");
@@ -134,8 +144,44 @@ function validateForm() {
         alert("Email cannot be empty");
         return false;
     }
-    var pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-    if (!pattern.test(email)) {
+
+    if (!email.includes("@")) {
+        alert("Invalid email address");
+        return false;
+    }
+    
+    let emailParts = email.split("@");
+    if (emailParts.length !== 2 || emailParts[0] === "" || emailParts[1] === "") {
+        alert("Invalid email address");
+        return false;
+    }
+    
+    if (emailParts[0].includes(" ") || emailParts[1].includes(" ")) {
+        alert("Invalid email address");
+        return false;
+    }
+    
+    if (!emailParts[1].includes(".")) {
+        alert("Invalid email address");
+        return false;
+    }
+    
+    let domainParts = emailParts[1].split(".");
+    if (domainParts.length !== 2 || domainParts[1] === "" || domainParts[1].length < 2 || domainParts[1].length > 3) {
+        alert("Invalid email address");
+        return false;
+    }
+    
+    let isValidExt = true;
+    for (let j = 0; j < domainParts[1].length; j++) {
+        let charCode = domainParts[1].charCodeAt(j);
+        if (charCode < 97 || charCode > 122) {
+            isValidExt = false;
+            break;
+        }
+    }
+    
+    if (!isValidExt) {
         alert("Invalid email address");
         return false;
     }

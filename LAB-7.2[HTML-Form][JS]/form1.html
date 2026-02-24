@@ -22,9 +22,18 @@ function validateForm() {
         return false;
     }
 
-    if (!/^[A-Za-z][A-Za-z.\- ]+$/.test(name)) {
+    let validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ. -";
+    
+    if (!validChars.includes(name.charAt(0)) || name.charAt(0) === '.' || name.charAt(0) === '-' || name.charAt(0) === ' ') {
         alert("Invalid characters or must start with letter");
         return false;
+    }
+    
+    for (let i = 1; i < name.length; i++) {
+        if (!validChars.includes(name[i])) {
+            alert("Invalid characters or must start with letter");
+            return false;
+        }
     }
 
     if (name.trim().split(" ").length < 2) {
